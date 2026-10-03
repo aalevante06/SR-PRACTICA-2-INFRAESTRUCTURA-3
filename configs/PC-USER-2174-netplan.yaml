@@ -1,0 +1,6 @@
+# PC-USER-2174
+network:
+  version: 2
+  ethernets:
+    ens3:
+      dhcp4: true

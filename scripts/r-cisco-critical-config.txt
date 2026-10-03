@@ -1,0 +1,16 @@
+! R-CISCO-2174 - extracto funcional
+interface FastEthernet1/0
+ description WAN-HACIA-ISP-2174
+ ip address 21.74.4.2 255.255.255.252
+ ip nat outside
+!
+interface FastEthernet1/1
+ description LAN-HACIA-WEB-SV-2174
+ ip address 10.21.74.129 255.255.255.240
+ ip nat inside
+!
+ip nat inside source list 101 interface FastEthernet1/0 overload
+ip nat inside source static tcp 10.21.74.130 443 interface FastEthernet1/0 443
+ip route 0.0.0.0 0.0.0.0 21.74.4.1
+access-list 101 deny ip 10.21.74.128 0.0.0.15 host 21.74.3.2
+access-list 101 permit ip 10.21.74.128 0.0.0.15 any
